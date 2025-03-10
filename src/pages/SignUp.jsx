@@ -8,7 +8,7 @@ export default function SignUp() {
   return (
     <div className="flex h-screen w-full">
       {/* Left Section */}
-      <div className="w-2/5 bg-black text-white flex flex-col items-center justify-center p-10">
+      <div className="w-full md:w-5/12 bg-black text-white flex flex-col items-center justify-center p-10">
         {/* Images Side by Side */}
         <div className="flex items-center gap-2">
           <img src={logo} alt="MindPal Logo" className="w-24" />
@@ -25,7 +25,7 @@ export default function SignUp() {
       </div>
 
       {/* Right Section */}
-      <div className="w-3/5 flex flex-col justify-center items-center p-16">
+      <div className="w-full md:w-7/12 flex flex-col justify-center items-center p-16">
         <h3 className="text-sm uppercase text-gray-500 mb-2">Let's Get You Started</h3>
         <h1 className="text-2xl font-bold mb-6">Create Your Account</h1>
 
@@ -45,7 +45,7 @@ export default function SignUp() {
           ))}
 
           {/* Submit Button */}
-          <button className="w-full bg-black text-white p-3 rounded-md">
+          <button className="w-full bg-black text-white p-3 rounded-md  hover:bg-[linear-gradient(to_right,#BB92C1,#0F91D2)]">
             CONTINUE
           </button>
 
