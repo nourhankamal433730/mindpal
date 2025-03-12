@@ -17,31 +17,31 @@ export default function Home() {
       title: "Early Symptoms",
       description:
         "Memory Loss, Difficulty Planning, Confusion With Time Or Place, Trouble Finding Words.",
-      link: "/early-symptoms",
+      link: "/EarlySymptoms",
     },
     {
       image: img2,
       title: "How To Support Patients",
       description:
         "Provide Structured Routines, Clear Communication, And Medication Reminders.",
-      link: "/support-patients",
+      link: "/SupportPatients",
     },
     {
       image: img3,
       title: "What Is Alzheimer’s?",
       description:
         "Alzheimer’s Is A Progressive Brain Disorder That Affects Memory, Thinking, And Behavior.",
-      link: "/what-is-alzheimers",
+      link: "/WhatIsAlzheimer",
     },
     {
       image: img4,
       title: "Prevention & Treatment",
       description:
         "Healthy Lifestyle, Regular Exercise, Cognitive Stimulation, And Medication Management.",
-      link: "/prevention-treatment",
+      link: "/PreventionTreatment",
     },
   ];
-
+ 
   return (
     <>
       {/* First Section */}
@@ -161,7 +161,7 @@ export default function Home() {
 </div>
 
      {/*Footer */}
-<footer className="bg-black text-white py-10 border-t border-gray-700">
+     <footer className="bg-black text-white py-10 border-t border-gray-700">
       <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center md:items-start">
         
         {/* Left Side: Links & Contact Info */}
