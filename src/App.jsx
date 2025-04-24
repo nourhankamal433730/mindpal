@@ -8,9 +8,12 @@ import SupportPatients from "./pages/SupportPatients.jsx";
 import EarlySymptoms from "./pages/EarlySymptoms.jsx";
 import WhatIsAlzheimer from "./pages/WhatIsAlzheimer.jsx";
 import PreventionTreatment from "./pages/PreventionTreatment.jsx";
+import UploadPageInitial from "./pages/UploadPageInitial.jsx";
+import UploadCompletePage from "./pages/UploadCompletePage.jsx";
+
 
 function App() {
-  const location = useLocation(); // ✅ This works because <BrowserRouter> is in main.jsx
+  const location = useLocation(); 
   const hideNavbarRoutes = ["/login", "/register","/SupportPatients","/EarlySymptoms","/WhatIsAlzheimer","/PreventionTreatment"];
   const showNavbar = !hideNavbarRoutes.includes(location.pathname);
 
@@ -20,7 +23,7 @@ function App() {
 
   return (
 
-    <div>
+    <div >
       {showNavbar && <Navbar />}
       
       <Routes>
@@ -31,7 +34,8 @@ function App() {
         <Route path="/EarlySymptoms" element={<EarlySymptoms/>} />
         <Route path="/WhatIsAlzheimer" element={<WhatIsAlzheimer/>} />
         <Route path="/PreventionTreatment" element={<PreventionTreatment/>} />
-
+        <Route path="/UploadPageInitial" element={<UploadPageInitial/>} />
+        <Route path="/upload-complete" element={<UploadCompletePage />} />
       </Routes>
     </div>
   );

@@ -8,12 +8,14 @@ export default function SupportPatients() {
   return (
     <>
       <div className="bg-black text-white min-h-screen">
-        <div className="my-5">
-        <Navbar hideAuthButtons={true} compact={true} />
-        </div>
+      <div className="sticky top-0 z-50 bg-black">
+        <Navbar hideAuthButtons={true} />
+      </div>
+      
+
+      
 
 
-     
         {/* Main Content */}
 
         <div className="flex flex-col md:flex-row p-6 md:p-12 gap-8 border-t border-gray-700 ">

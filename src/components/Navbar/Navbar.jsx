@@ -16,7 +16,7 @@ export default function Navbar({ hideAuthButtons = false }) {
       <div className="space-x-12 md:flex">
         <Link to="/" className="text-transparent bg-clip-text bg-gradient-to-r from-[#BB92C1] to-[#0F91D2] transition font-semibold text-xl">Home</Link>
         <a href="/#our-app" className="hover:text-transparent bg-clip-text bg-gradient-to-r from-[#BB92C1] to-[#0F91D2] transition text-gray-400 font-semibold text-xl">Our Application</a>
-        <Link to="/upload" className="hover:text-transparent bg-clip-text bg-gradient-to-r from-[#BB92C1] to-[#0F91D2] transition text-gray-400 font-semibold text-xl">Upload Scans</Link>
+        <Link to="/UploadPageInitial" className="hover:text-transparent bg-clip-text bg-gradient-to-r from-[#BB92C1] to-[#0F91D2] transition text-gray-400 font-semibold text-xl">Upload Scans</Link>
         <a href="/#about" className="hover:text-transparent bg-clip-text bg-gradient-to-r from-[#BB92C1] to-[#0F91D2] transition text-gray-400 font-semibold text-xl">About</a>
       </div>
 

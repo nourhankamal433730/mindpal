@@ -1,5 +1,9 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import  { useEffect } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
 import aiRobot from "../assets/images/Untitled design 1.png";
 import img1 from "../assets/images/sec1.png";
 import img2 from "../assets/images/robot-handshake.png";
@@ -9,6 +13,17 @@ import aboutImg from "../assets/images/people-hanging.png"
 import phone1 from "../assets/images/phone1.png"
 import phone2 from "../assets/images/phone2.png"
 export default function Home() {
+  useEffect(() => {
+    AOS.init({
+      duration: 1000,
+      once: true,
+      mirror: true,           // animate when scrolling back up
+      startEvent: 'DOMContentLoaded', // run when the DOM is ready
+      offset: 0               // trigger animation even if barely in view
+    });
+  }, []);
+
+
   const navigate = useNavigate();
 
   const awarenessCards = [
@@ -44,11 +59,13 @@ export default function Home() {
  
   return (
     <>
-      {/* First Section */}
+
+      <div className="bg-black">
+           {/* First Section */}
       <div id="home" className="bg-black text-white min-h-screen flex flex-col items-center justify-center px-6">
         <div className="flex flex-col md:flex-row items-center justify-between w-full max-w-6xl">
           {/* Left Image */}
-          <div className="mt-8 md:mt-0 w-full md:w-1/2 flex justify-center">
+          <div className="mt-8 md:mt-0 w-full md:w-1/2 flex justify-center"  data-aos="fade-right">
             <img
               src={aiRobot}
               alt="AI Robot"
@@ -57,7 +74,7 @@ export default function Home() {
           </div>
 
           {/* Right Content */}
-          <div className="text-center md:text-left space-y-6 w-full md:w-1/2 px-4">
+          <div className="text-center md:text-left space-y-6 w-full md:w-1/2 px-4" data-aos="fade-left">
             <h1 className="text-4xl md:text-6xl font-bold">
               Smart AI For Fast & Accurate Radiology Reports
             </h1>
@@ -65,27 +82,72 @@ export default function Home() {
               Upload Medical Scans And Get AI-Powered Insights To Assist In
               Diagnosis
             </p>
-            <button className="bg-white text-black px-6 py-3 rounded-lg font-semibold hover:bg-gradient-to-r from-[#0F91D2] to-[#BB92C1] transition">
+            <Link to="/UploadPageInitial"
+             className="bg-white text-black px-6 py-3 rounded-lg font-semibold hover:bg-gradient-to-r from-[#0F91D2] to-[#BB92C1] transition">
               Upload Scans
-            </button>
+            </Link>
           </div>
         </div>
       </div>
 
+
+
+
       {/* Awareness Section */}
-      <div className="bg-black text-white py-16 px-6">
-        <h2 className="text-4xl font-semibold text-center mb-16">
+      {/* <div className="bg-black text-white py-16 px-6" data-aos="fade-up">
+  <h2 className="text-4xl font-semibold text-center mb-16" data-aos="zoom-in">
+    Alzheimer’s Awareness Section
+  </h2>
+
+  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
+    {awarenessCards.map((card, index) => (
+      <div
+        key={index}
+        onClick={() => navigate(card.link)}
+        className="relative bg-black p-8 rounded-xl text-center border border-gray-700 transition-all 
+        hover:shadow-[0_0_15px_rgba(187,146,193,0.7),0_0_30px_rgba(15,145,210,0.7)] cursor-pointer w-full sm:w-[350px] md:w-[350px] lg:w-[300px]
+        before:absolute before:inset-0 before:rounded-xl before:border-2 before:border-transparent before:bg-gradient-to-r before:from-[#BB92C1] 
+        before:to-[#0F91D2] before:-z-10 before:opacity-0 hover:before:opacity-100"
+        data-aos={index % 4 === 0 ? "zoom-in-up" : index % 4 === 1 ? "zoom-in-down" : index % 4 === 2 ? "zoom-in-left" : "zoom-in-right"}
+        data-aos-delay={index * 100}
+      >
+        <img
+          src={card.image}
+          alt={card.title}
+          className="w-full h-40 object-contain mx-auto mb-4"
+        />
+        <h3 className="text-2xl font-semibold mb-2">{card.title}</h3>
+        <p className="text-gray-400 text-base">{card.description}</p>
+      </div>
+    ))}
+  </div>
+      </div> */}
+
+      <div className="bg-black text-white py-16 px-6" data-aos="fade-up">
+        <h2 className="text-4xl font-semibold text-center mb-16" data-aos="zoom-in">
           Alzheimer’s Awareness Section
         </h2>
+
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
           {awarenessCards.map((card, index) => (
             <div
               key={index}
               onClick={() => navigate(card.link)}
-              className="relative bg-black p-8 rounded-xl text-center border border-gray-700 transition-all 
-              hover:shadow-[0_0_15px_rgba(187,146,193,0.7),0_0_30px_rgba(15,145,210,0.7)] cursor-pointer w-full sm:w-[350px] md:w-[350px] lg:w-[300px]
-              before:absolute before:inset-0 before:rounded-xl before:border-2 before:border-transparent before:bg-gradient-to-r before:from-[#BB92C1] 
-              before:to-[#0F91D2] before:-z-10 before:opacity-0 hover:before:opacity-100"
+              className="relative bg-black p-8 rounded-xl text-center border border-gray-700 transition-all
+              cursor-pointer w-full sm:w-[350px] md:w-[350px] lg:w-[300px]
+              before:absolute before:inset-0 before:rounded-xl before:-z-10 
+              before:content-[''] before:opacity-0 before:transition-opacity before:duration-300
+              hover:before:opacity-100 hover:before:shadow-[0_0_20px_5px_#BB92C1,0_0_30px_10px_#0F91D2]"
+              data-aos={
+                index % 4 === 0
+                  ? "zoom-in-up"
+                  : index % 4 === 1
+                  ? "zoom-in-down"
+                  : index % 4 === 2
+                  ? "zoom-in-left"
+                  : "zoom-in-right"
+              }
+              data-aos-delay={index * 100}
             >
               <img
                 src={card.image}
@@ -99,10 +161,10 @@ export default function Home() {
         </div>
       </div>
 
+
       {/* Our Application Section */}
-      <div id="our-app" className="bg-black text-white py-16 px-6">
+      {/* { <div id="our-app" className="bg-black text-white py-16 px-6">
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
-        {/* Left Content */}
         <div className="text-center md:text-left">
           <h2 className="text-4xl font-semibold mb-6">Our Application</h2>
           <p className="text-xl text-gray-400 leading-relaxed">
@@ -117,7 +179,6 @@ export default function Home() {
           </button>
         </div>
 
-        {/* Right Image */}
         <div className="relative flex justify-center">
           <img
             src={phone2}
@@ -131,34 +192,74 @@ export default function Home() {
           />
         </div>
       </div>
-    </div>
+       </div> } */}
+
+      <div id="our-app" className="bg-black text-white py-16 px-6">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+          
+          {/* Left Content with flip-up */}
+          <div data-aos="flip-up">
+            <div className="text-center md:text-left">
+              <h2 className="text-4xl font-semibold mb-6">Our Application</h2>
+              <p className="text-xl text-gray-400 leading-relaxed">
+                Our Smart Medication Management App Is Designed Specifically For
+                Alzheimer's Patients. Doctors Can Add Patients, Set Medication
+                Schedules, And Ensure Timely Reminders Through Automatic
+                Notifications. This Ensures Better Adherence To Treatment And
+                Improved Patient Well-Being.
+              </p>
+              <button className="mt-6 bg-white text-black px-6 py-3 rounded-lg font-semibold shadow-md hover:bg-gradient-to-r from-[#0F91D2] to-[#BB92C1] transition">
+                Download Application
+              </button>
+            </div>
+          </div>
+
+          {/* Right Image with flip-down */}
+          <div data-aos="flip-down">
+            <div className="relative flex justify-center">
+              <img
+                src={phone2}
+                alt="App Mockup 1"
+                className="absolute top-12 left-1/5  md:w-1/2 max-w-xs z-10"
+              />
+              <img
+                src={phone1}
+                alt="App Mockup 2"
+                className="relative left-3/12 md:w-1/2 max-w-xs"
+              />
+            </div>
+          </div>
+
+        </div>
+      </div>
+
 
       {/* About Us Section */}
-  <div id="about" className="bg-black text-white py-16">
-  <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-5 items-center">
-    {/* Left Image */}
-    <div className="flex justify-center">
-      <img 
-        src={aboutImg} 
-        alt="AI Robot" 
-        className=" md:w-4/5 lg:w-3/4 xl:w-2/3" 
-      />
-    </div>
+      <div id="about" className="bg-black text-white py-16">
+      <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-5 items-center">
+        {/* Left Image */}
+        <div className="flex justify-center">
+          <img 
+            src={aboutImg} 
+            alt="AI Robot" 
+            className=" md:w-4/5 lg:w-3/4 xl:w-2/3" 
+          />
+        </div>
 
-    {/* Right Content */}
-    <div>
-      <h2 className="text-3xl md:text-4xl font-bold text-gray-300 mb-6">
-        About Us
-      </h2>
-      <p className="text-2xl text-gray-400 leading-relaxed">
-        We Are A Team Of AI And Healthcare Experts Dedicated To
-        Revolutionizing Radiology With Artificial Intelligence. Our
-        Platform Helps Radiologists Analyze Medical Scans Efficiently,
-        Ensuring Accurate Diagnoses And Improved Patient Care.
-      </p>
+        {/* Right Content */}
+        <div>
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-300 mb-6">
+            About Us
+          </h2>
+          <p className="text-2xl text-gray-400 leading-relaxed">
+            We Are A Team Of AI And Healthcare Experts Dedicated To
+            Revolutionizing Radiology With Artificial Intelligence. Our
+            Platform Helps Radiologists Analyze Medical Scans Efficiently,
+            Ensuring Accurate Diagnoses And Improved Patient Care.
+          </p>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
 
      {/*Footer */}
      <footer className="bg-black text-white py-10 border-t border-gray-700">
@@ -209,6 +310,8 @@ export default function Home() {
         <p>Copyright & Privacy Policy</p>
       </div>
     </footer>
+      </div>
+   
     </>
   );
 }

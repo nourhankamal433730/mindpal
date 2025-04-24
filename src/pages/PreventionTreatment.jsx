@@ -7,9 +7,10 @@ export default function PreventionTreatment () {
   return (
    <>
          <div className="bg-black text-white min-h-screen">
-           <div className="my-5">
-           <Navbar hideAuthButtons={true} compact={true} />
-           </div>
+           <div className="sticky top-0 z-50 bg-black">
+                  <Navbar hideAuthButtons={true} />
+            </div>
+                
    
    
         
