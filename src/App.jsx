@@ -10,6 +10,8 @@ import WhatIsAlzheimer from "./pages/WhatIsAlzheimer.jsx";
 import PreventionTreatment from "./pages/PreventionTreatment.jsx";
 import UploadPageInitial from "./pages/UploadPageInitial.jsx";
 import UploadCompletePage from "./pages/UploadCompletePage.jsx";
+import ReportPage from "./pages/ReportPage.jsx";
+import EditReport from "./pages/EditReport.jsx";
 
 
 function App() {
@@ -36,6 +38,9 @@ function App() {
         <Route path="/PreventionTreatment" element={<PreventionTreatment/>} />
         <Route path="/UploadPageInitial" element={<UploadPageInitial/>} />
         <Route path="/upload-complete" element={<UploadCompletePage />} />
+        <Route path="/report-page" element={<ReportPage />} />
+        <Route path="/edit-report-page" element={<EditReport />} />
+
       </Routes>
     </div>
   );
