@@ -23,8 +23,8 @@ export default function Navbar({ hideAuthButtons = false }) {
       {/* Auth Buttons (Hide if hideAuthButtons is true) */}
       {!hideAuthButtons && (
         <div className="space-x-7 mr-4">
-          <Link to="/login" className="hover:text-transparent bg-clip-text bg-gradient-to-r from-[#BB92C1] to-[#0F91D2] transition font-semibold text-xl">Log In</Link>
-          <Link to="/register" className="bg-white text-black px-4 py-2 rounded-lg hover:bg-[linear-gradient(to_right,#BB92C1,#0F91D2)] transition font-semibold text-xl">Sign Up</Link>
+          <Link to="/login" className="hover:text-transparent bg-clip-text bg-gradient-to-r from-[#BB92C1] to-[#0F91D2] transition font-semibold text-2xl">Log In</Link>
+          {/* <Link to="/register" className="bg-white text-black px-4 py-2 rounded-lg hover:bg-[linear-gradient(to_right,#BB92C1,#0F91D2)] transition font-semibold text-xl">Sign Up</Link> */}
         </div>
       )}
     </nav>

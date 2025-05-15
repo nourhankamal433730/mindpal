@@ -30,7 +30,7 @@ function App() {
       
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/register" element={<SignUp />} />
+        {/* <Route path="/register" element={<SignUp />} /> */}
         <Route path="/login" element={<Login />} />
         <Route path="/SupportPatients" element={<SupportPatients/>} />
         <Route path="/EarlySymptoms" element={<EarlySymptoms/>} />
@@ -39,7 +39,7 @@ function App() {
         <Route path="/UploadPageInitial" element={<UploadPageInitial/>} />
         <Route path="/upload-complete" element={<UploadCompletePage />} />
         <Route path="/report-page" element={<ReportPage />} />
-        <Route path="/edit-report-page" element={<EditReport />} />
+        {/* <Route path="/edit-report-page" element={<EditReport />} /> */}
 
       </Routes>
     </div>
