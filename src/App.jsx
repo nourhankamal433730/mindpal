@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import Navbar from "./components/Navbar/Navbar.jsx";
 import Home from "./pages/Home.jsx";
 import SignUp from "./pages/SignUp.jsx";
-import Login from "./pages/Login.jsx";
+import Login from "./pages/Login/Login.jsx";
 import SupportPatients from "./pages/SupportPatients.jsx";
 import EarlySymptoms from "./pages/EarlySymptoms.jsx";
 import WhatIsAlzheimer from "./pages/WhatIsAlzheimer.jsx";

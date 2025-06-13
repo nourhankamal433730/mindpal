@@ -429,15 +429,170 @@
 // export default ReportPage;
 
 
+// import React, { useRef, useState } from 'react';
+// import { useLocation, Link } from 'react-router-dom';
+// import html2canvas from 'html2canvas';
+// import jsPDF from 'jspdf';
+
+// const ReportPage = () => {
+//   const { state } = useLocation();
+
+
+//   const reportData = state?.analysisResult.scan || {};
+//   const patientName = reportData.uploadedTo || 'Unknown';
+
+//   const [isGeneratingPDF, setIsGeneratingPDF] = useState(false);
+//   const reportRef = useRef();
+
+//   const handleDownloadPDF = async () => {
+//     setIsGeneratingPDF(true);
+//     try {
+//       const pdfContainer = document.createElement('div');
+//       pdfContainer.style.position = 'fixed';
+//       pdfContainer.style.top = '0';
+//       pdfContainer.style.left = '0';
+//       pdfContainer.style.width = `${reportRef.current.offsetWidth}px`;
+//       pdfContainer.style.backgroundColor = '#111827';
+//       pdfContainer.style.zIndex = '9999';
+//       pdfContainer.style.visibility = 'hidden';
+//       document.body.appendChild(pdfContainer);
+
+//       const contentClone = reportRef.current.cloneNode(true);
+//       contentClone.querySelectorAll('button, a').forEach(el => el.remove());
+//       contentClone.querySelectorAll('*').forEach(el => {
+//         el.style.visibility = 'visible';
+//         el.style.opacity = '1';
+//       });
+
+//       pdfContainer.appendChild(contentClone);
+
+//       await document.fonts.ready;
+//       await new Promise(resolve => setTimeout(resolve, 1000));
+
+//       const canvas = await html2canvas(pdfContainer, {
+//         scale: 1,
+//         useCORS: true,
+//         backgroundColor: '#111827',
+//         windowWidth: pdfContainer.scrollWidth,
+//         windowHeight: pdfContainer.scrollHeight,
+//       });
+
+//       const pdf = new jsPDF('p', 'mm', 'a4');
+//       const imgData = canvas.toDataURL('image/png');
+//       const imgWidth = pdf.internal.pageSize.getWidth() - 20;
+//       const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+//       pdf.addImage(imgData, 'PNG', 10, 10, imgWidth, imgHeight);
+//       pdf.save('alzheimer_report.pdf');
+//     } catch (error) {
+//       alert('PDF generation failed.');
+//     } finally {
+//       document.querySelectorAll('div[style*="z-index: 9999"]').forEach(el => el.remove());
+//       setIsGeneratingPDF(false);
+//     }
+//   };
+
+//   return (
+//     <div className="bg-black min-h-screen" ref={reportRef}>
+//       <div className="flex justify-center items-center p-12">
+//         <div className='w-7xl flex justify-between items-center'>
+//           <h2 className="text-3xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-[#d8b4fe] to-[#60a5fa]">
+//             Original Scan
+//           </h2>
+//           {/* <Link 
+//             to="/edit-report-page" 
+//             className="text-xl text-transparent bg-clip-text bg-gradient-to-r from-[#d8b4fe] to-[#60a5fa] hover:underline"
+//           >
+//             Edit Report
+//           </Link> */}
+//         </div>
+//       </div>
+
+//       <div className="container flex justify-between mx-auto px-4 py-8 max-w-6xl rounded-2xl bg-gray-900">
+//         <div>
+//           <img 
+//             src={reportData.filePath} 
+//             alt="Brain scan" 
+//             className="max-w-full h-auto rounded-md"
+//             crossOrigin="anonymous"
+//           />
+//         </div>
+
+//         <div className="w-2xl rounded-lg shadow-md p-6 mb-8">
+//              <div className="mb-6">
+//                 <h3 className="text-3xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-[#d8b4fe] to-[#60a5fa] mb-4">
+//                   Scan Analysis Results
+//                 </h3>
+//             </div>
+//            <hr className="my-3 border-gray-700" />
+//           <div className="mb-6">
+//             <h3 className="text-2xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-[#d8b4fe] to-[#60a5fa] mb-2">
+//               Patient Information
+//             </h3>
+//             <p className="text-gray-300 text-xl">
+//               <span className="font-medium  mr-2 text-gray-400">Name:</span> {patientName}
+//             </p>
+//           </div>
+
+//           <div className="mb-6">
+//             <h3 className="text-2xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-[#d8b4fe] to-[#60a5fa] mb-2">
+//               Diagnosis
+//             </h3>
+//             <p className="text-gray-300 text-xl">
+//               <span className="font-medium  mr-2 text-gray-400">Result:</span> {reportData.analysisResult}
+//             </p>
+//           </div>
+
+//           <div className="mb-6">
+//             <h3 className="text-2xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-[#d8b4fe] to-[#60a5fa] mb-2">
+//               Doctor Information
+//             </h3>
+//             <p className="text-gray-300 text-xl">
+//               <span className="font-medium  mr-2 text-gray-400">Name:</span> {reportData.doctorName || 'Unknown'}
+//             </p>
+//           </div>
+
+//           <div>
+//             <h3 className="text-2xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-[#d8b4fe] to-[#60a5fa] mb-2">
+//               Upload Date
+//             </h3>
+//             <p className="text-gray-300 mr-2">
+//               {new Date(reportData.uploadDate).toLocaleString()}
+//             </p>
+//           </div>
+//         </div>
+//       </div>
+
+//       <div className="flex flex-col sm:flex-row justify-end gap-4 p-11">
+//         <Link 
+//           to="/UploadPageInitial"
+//           className="px-6 py-3 bg-gradient-to-r from-[#3b82f6] to-[#8b5cf6] rounded-md font-semibold text-white hover:opacity-90 transition-opacity text-center"
+//         >
+//           Upload Another Scan
+//         </Link>
+//         <button 
+//           onClick={handleDownloadPDF}
+//           disabled={isGeneratingPDF}
+//           className={`px-6 py-3 bg-gradient-to-r from-[#3b82f6] to-[#8b5cf6] rounded-md font-semibold text-white transition-opacity ${
+//             isGeneratingPDF ? 'opacity-70 cursor-not-allowed' : 'hover:opacity-90'
+//           }`}
+//         >
+//           {isGeneratingPDF ? 'Generating PDF...' : 'Download Report (PDF)'}
+//         </button>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default ReportPage;
+
+
 import React, { useRef, useState } from 'react';
 import { useLocation, Link } from 'react-router-dom';
-import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 
 const ReportPage = () => {
   const { state } = useLocation();
-
-
   const reportData = state?.analysisResult.scan || {};
   const patientName = reportData.uploadedTo || 'Unknown';
 
@@ -446,91 +601,133 @@ const ReportPage = () => {
 
   const handleDownloadPDF = async () => {
     setIsGeneratingPDF(true);
+
     try {
-      const pdfContainer = document.createElement('div');
-      pdfContainer.style.position = 'fixed';
-      pdfContainer.style.top = '0';
-      pdfContainer.style.left = '0';
-      pdfContainer.style.width = `${reportRef.current.offsetWidth}px`;
-      pdfContainer.style.backgroundColor = '#111827';
-      pdfContainer.style.zIndex = '9999';
-      pdfContainer.style.visibility = 'hidden';
-      document.body.appendChild(pdfContainer);
+      const pdf = new jsPDF();
 
-      const contentClone = reportRef.current.cloneNode(true);
-      contentClone.querySelectorAll('button, a').forEach(el => el.remove());
-      contentClone.querySelectorAll('*').forEach(el => {
-        el.style.visibility = 'visible';
-        el.style.opacity = '1';
-      });
+      const titleColor = "#7C3AED";
+      const labelColor = "#6B7280";
+      const textColor = "#111827";
 
-      pdfContainer.appendChild(contentClone);
+      let y = 10;
 
-      await document.fonts.ready;
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      pdf.setFont("helvetica", "bold");
+      pdf.setTextColor(titleColor);
+      pdf.setFontSize(18);
+      pdf.text("Alzheimer Scan Report", 10, y);
+      y += 12;
 
-      const canvas = await html2canvas(pdfContainer, {
-        scale: 1,
-        useCORS: true,
-        backgroundColor: '#111827',
-        windowWidth: pdfContainer.scrollWidth,
-        windowHeight: pdfContainer.scrollHeight,
-      });
+      pdf.setFont("helvetica", "normal");
+      pdf.setFontSize(12);
 
-      const pdf = new jsPDF('p', 'mm', 'a4');
-      const imgData = canvas.toDataURL('image/png');
-      const imgWidth = pdf.internal.pageSize.getWidth() - 20;
-      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+      pdf.setTextColor(labelColor);
+      pdf.text("Patient Name:", 10, y);
+      pdf.setTextColor(textColor);
+      pdf.text(patientName, 50, y);
+      y += 8;
 
-      pdf.addImage(imgData, 'PNG', 10, 10, imgWidth, imgHeight);
-      pdf.save('alzheimer_report.pdf');
+      pdf.setTextColor(labelColor);
+      pdf.text("Diagnosis Result:", 10, y);
+      pdf.setTextColor(textColor);
+      pdf.text(reportData.analysisResult || "N/A", 50, y);
+      y += 8;
+
+      pdf.setTextColor(labelColor);
+      pdf.text("Doctor Name:", 10, y);
+      pdf.setTextColor(textColor);
+      pdf.text(reportData.doctorName || "Unknown", 50, y);
+      y += 8;
+
+      pdf.setTextColor(labelColor);
+      pdf.text("Upload Date:", 10, y);
+      pdf.setTextColor(textColor);
+      pdf.text(
+        reportData.uploadDate
+          ? new Date(reportData.uploadDate).toLocaleString()
+          : "N/A",
+        50,
+        y
+      );
+      y += 15;
+
+      if (reportData.filePath) {
+        const image = new Image();
+        image.crossOrigin = "anonymous";
+        image.src = reportData.filePath;
+
+        image.onload = () => {
+          const canvas = document.createElement("canvas");
+          canvas.width = image.width;
+          canvas.height = image.height;
+          const ctx = canvas.getContext("2d");
+          ctx.drawImage(image, 0, 0);
+
+          const imageData = canvas.toDataURL("image/jpeg");
+
+          const pageWidth = pdf.internal.pageSize.getWidth() - 20;
+          const imgWidth = pageWidth;
+          const imgHeight = (image.height * imgWidth) / image.width;
+
+          if (y + imgHeight > pdf.internal.pageSize.getHeight()) {
+            pdf.addPage();
+            y = 10;
+          }
+
+          pdf.addImage(imageData, "JPEG", 10, y, imgWidth, imgHeight);
+
+          pdf.save("alzheimer_report.pdf");
+          setIsGeneratingPDF(false);
+        };
+
+        image.onerror = () => {
+          alert("Failed to load scan image.");
+          setIsGeneratingPDF(false);
+        };
+      } else {
+        alert("No scan image found.");
+        setIsGeneratingPDF(false);
+      }
     } catch (error) {
-      alert('PDF generation failed.');
-    } finally {
-      document.querySelectorAll('div[style*="z-index: 9999"]').forEach(el => el.remove());
+      alert("PDF generation failed.");
+      console.error(error);
       setIsGeneratingPDF(false);
     }
   };
 
   return (
-    <div className="bg-black min-h-screen" ref={reportRef}>
+    <div className="bg-black min-h-screen text-white" ref={reportRef}>
       <div className="flex justify-center items-center p-12">
         <div className='w-7xl flex justify-between items-center'>
           <h2 className="text-3xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-[#d8b4fe] to-[#60a5fa]">
             Original Scan
           </h2>
-          {/* <Link 
-            to="/edit-report-page" 
-            className="text-xl text-transparent bg-clip-text bg-gradient-to-r from-[#d8b4fe] to-[#60a5fa] hover:underline"
-          >
-            Edit Report
-          </Link> */}
         </div>
       </div>
 
-      <div className="container flex justify-between mx-auto px-4 py-8 max-w-6xl rounded-2xl bg-gray-900">
-        <div>
+      <div className="container flex flex-col lg:flex-row justify-between mx-auto px-4 py-8 max-w-6xl rounded-2xl bg-gray-900 gap-8">
+        <div className="w-full lg:w-1/2">
           <img 
             src={reportData.filePath} 
             alt="Brain scan" 
-            className="max-w-full h-auto rounded-md"
+            className="w-full h-auto rounded-md"
             crossOrigin="anonymous"
           />
         </div>
 
-        <div className="w-2xl rounded-lg shadow-md p-6 mb-8">
-             <div className="mb-6">
-                <h3 className="text-3xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-[#d8b4fe] to-[#60a5fa] mb-4">
-                  Scan Analysis Results
-                </h3>
-            </div>
-           <hr className="my-3 border-gray-700" />
+        <div className="w-full lg:w-1/2 rounded-lg shadow-md p-6 mb-8">
+          <div className="mb-6">
+            <h3 className="text-3xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-[#d8b4fe] to-[#60a5fa] mb-4">
+              Scan Analysis Results
+            </h3>
+          </div>
+          <hr className="my-3 border-gray-700" />
+
           <div className="mb-6">
             <h3 className="text-2xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-[#d8b4fe] to-[#60a5fa] mb-2">
               Patient Information
             </h3>
             <p className="text-gray-300 text-xl">
-              <span className="font-medium  mr-2 text-gray-400">Name:</span> {patientName}
+              <span className="font-medium mr-2 text-gray-400">Name:</span> {patientName}
             </p>
           </div>
 
@@ -539,7 +736,7 @@ const ReportPage = () => {
               Diagnosis
             </h3>
             <p className="text-gray-300 text-xl">
-              <span className="font-medium  mr-2 text-gray-400">Result:</span> {reportData.analysisResult}
+              <span className="font-medium mr-2 text-gray-400">Result:</span> {reportData.analysisResult}
             </p>
           </div>
 
@@ -548,7 +745,7 @@ const ReportPage = () => {
               Doctor Information
             </h3>
             <p className="text-gray-300 text-xl">
-              <span className="font-medium  mr-2 text-gray-400">Name:</span> {reportData.doctorName || 'Unknown'}
+              <span className="font-medium mr-2 text-gray-400">Name:</span> {reportData.doctorName || 'Unknown'}
             </p>
           </div>
 
@@ -556,7 +753,7 @@ const ReportPage = () => {
             <h3 className="text-2xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-[#d8b4fe] to-[#60a5fa] mb-2">
               Upload Date
             </h3>
-            <p className="text-gray-300 mr-2">
+            <p className="text-gray-300 mr-2 text-xl">
               {new Date(reportData.uploadDate).toLocaleString()}
             </p>
           </div>
