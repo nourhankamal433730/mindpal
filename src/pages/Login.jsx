@@ -210,12 +210,11 @@
 import React, { useEffect, useState } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import "./login.css";
 import { Link, useNavigate } from "react-router-dom";
 
-import logo from "../../assets/images/logo.png";
-import name from "../../assets/images/logoname.png";
-import aiHand from "../../assets/images/robot-handshake.png";
+import logo from "../assets/images/logo.png";
+import name from "../assets/images/logoname.png";
+import aiHand from "../assets/images/robot-handshake.png";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -237,7 +236,7 @@ export default function Login() {
   const [error, setError] = useState("");
 
   const handleLogin = async () => {
-    setError(""); // Clear any previous errors
+    setError(""); 
 
     try {
       const response = await fetch(
@@ -264,7 +263,7 @@ export default function Login() {
       localStorage.setItem("token", data.token);
 
       console.log("Login successful:", data);
-      navigate("/");
+      navigate("/home");
     } catch (err) {
       console.error(err);
       setError("Something went wrong. Please try again.");

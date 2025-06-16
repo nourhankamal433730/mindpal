@@ -65,25 +65,25 @@ export default function Navbar({ hideAuthButtons = false }) {
         }`}
       >
         <Link
-          to="/"
+          to="/home"
           className="text-transparent bg-clip-text bg-gradient-to-r from-[#BB92C1] to-[#0F91D2] font-semibold text-lg"
         >
           Home
         </Link>
         <a
-          href="/#our-app"
+          href="#our-app"
           className="hover:text-transparent bg-clip-text bg-gradient-to-r from-[#BB92C1] to-[#0F91D2] text-gray-400 font-semibold text-lg"
         >
           Our Application
         </a>
         <Link
-          to="/UploadPageInitial"
+          to="UploadPageInitial"
           className="hover:text-transparent bg-clip-text bg-gradient-to-r from-[#BB92C1] to-[#0F91D2] text-gray-400 font-semibold text-lg"
         >
           Upload Scans
         </Link>
         <a
-          href="/#about"
+          href="#about"
           className="hover:text-transparent bg-clip-text bg-gradient-to-r from-[#BB92C1] to-[#0F91D2] text-gray-400 font-semibold text-lg"
         >
           About

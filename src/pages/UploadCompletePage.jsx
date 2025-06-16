@@ -253,14 +253,13 @@ import React, { useState } from 'react';
 import { useLocation, Link, useNavigate } from 'react-router-dom';
 
 export default function UploadCompletePage() {
-  const { state } = useLocation();  // استرجاع بيانات الملف من التوجيه
+  const { state } = useLocation();
   const navigate = useNavigate();
   const [showDetails, setShowDetails] = useState(false);
   const [patientCode, setPatientCode] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-  const [isLoading, setIsLoading] = useState(false); // ✅ حالة التحميل
+  const [isLoading, setIsLoading] = useState(false); 
 
-  // التحقق إذا كانت البيانات موجودة
   if (!state) {
     return <p style={{ color: 'white' }}>No file data provided.</p>;
   }
@@ -282,7 +281,7 @@ export default function UploadCompletePage() {
     formData.append('code', patientCode);
 
     try {
-      setIsLoading(true); // ✅ إظهار التحميل
+      setIsLoading(true); 
       const response = await fetch("https://gragduationproject-1.onrender.com/api/scan", {
         method: "POST",
         headers: {
@@ -292,22 +291,21 @@ export default function UploadCompletePage() {
       });
 
       const data = await response.json();
-      setIsLoading(false); // ✅ إيقاف التحميل
+      setIsLoading(false);
 
       if (!response.ok) {
         throw new Error(data.message || "Failed to analyze.");
       }
 
-      console.log("Analysis result from API:", data); // ✅ عرض النتيجة في الكونسول
+      console.log("Analysis result from API:", data);
       navigate("/report-page", { state: { analysisResult: data } });
 
     } catch (err) {
-      setIsLoading(false); // ✅ إيقاف التحميل في حالة الخطأ
+      setIsLoading(false);
       setErrorMessage(err.message);
     }
   };
 
-  // ✅ شاشة التحميل
   if (isLoading) {
     return (
       <div className="bg-black text-white flex items-center justify-center h-screen">
